@@ -1,0 +1,24 @@
+#============================================
+#         Configs for localhost:
+#============================================
+
+#Datasourse props
+spring:
+  datasource:
+    driver: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/bike_championship?useUnicode=true&characterEncoding=utf8&useSSL=false&verifyS$
+    username: root
+    password: bike-championship
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      dialect: MySQL5Dialect
+
+#Jwt properties
+jwt:
+  secret: JWTSuperSecretKey
+  expirationInMs: 604800000
+
+#Cors constants
+cors:
+  origin: "*"

@@ -1,0 +1,12 @@
+.event-card-categories {
+    margin-top: 16px;
+    overflow: hidden;
+}
+
+.event-card-date-time {
+    height: 20px;
+    line-height: 20px;
+    margin-bottom: -4px;
+    margin-top: 16px;
+    overflow: hidden;
+}
