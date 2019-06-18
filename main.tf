@@ -8,18 +8,18 @@ provider "google" {
 #Front
 
 resource "google_compute_instance_template" "front-template" {
-   machine_type = "n1-standard-1"
-   tags = ["front-tag"]
+   machine_type = "g1-small"
+   tags = ["front"]
 
-   metadata = {
-      ssh-keys = "${var.ssh_user}:${file("${var.public_key_path}")}"
-   }
-   
    disk {
       auto_delete = true
-      source_image = "${data.google_compute_image.debian.self_link}"
+      source_image = "ubuntu-os-cloud/ubuntu-1604-lts"
    }
 
+   metadata = {
+      ssh-keys = "root:${file("/home/dr_trem86/.ssh/gcloud_id_rsa.pub")}"
+   }
+   
    network_interface {
       network = "default"
       access_config {
@@ -36,12 +36,12 @@ resource "google_compute_instance_group_manager" "front-group" {
 
 
    named_port {
-      name = "front-80"
+      name = "front80"
       port = "80"
    }
 
    named_port {
-      name = "front-3000"
+      name = "front3000"
       port = "3000"
    }
 }
@@ -84,21 +84,21 @@ resource "google_compute_instance" "back" {
   }
 
   metadata = {
-    ssh-keys = "${var.ssh_user}:${file("${var.public_key_path}")}"
+    ssh-keys = "root:${file("/home/dr_trem86/.ssh/gcloud_id_rsa.pub")}"
   }
 
   provisioner "remote-exec" {
     connection {
+      host        = "back"
       type        = "ssh"
       user        = "root"
-      private_key = "${file("${var.private_key_path}")}"
+      private_key = "${file("/home/dr_trem86/.ssh/gcloud_id_rsa")}"
       agent       = false
     }
 
     inline = [
-      "sudo curl -sSL https://get.docker.com/ | sh",
-      "sudo usermod -aG docker `echo $USER`",
-      "sudo docker run -d -p 80:80 nginx"
+      "echo hi >> 1.txt",
+      "echo hi"
     ]
   }
 
@@ -126,7 +126,6 @@ resource "google_compute_instance" "db" {
     network = "default"
 
     access_config {
-      10.0.0.10
     }
   }
 }
@@ -161,10 +160,7 @@ resource "google_sql_database_instance" "mysql" {
     tier = "D0"
 
     ip_configuration {
-      authorized_networks = [
-        "${data.null_data_source.auth_netw_mysql_allowed_1.*.outputs}",
-        "${data.null_data_source.auth_netw_mysql_allowed_2.*.outputs}",
-      ]
+      ipv4_enabled = "true"
     }
   }
 }
