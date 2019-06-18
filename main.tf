@@ -1,6 +1,6 @@
 provider "google" {
-  credentials = "${file("/home/dr_trem86/secrets/dulcet-cat-242615-d1e828fcf047.json")}"
-  project = "{{dulcet-cat-242615}}"
+  credentials = "${file("/home/dr_trem86/secrets/java-243611-6d1d9066ee2b.json")}"
+  project = "{{java-243611}}"
   region  = "europe-west6-a"
   zone    = "europe-west6-a"
 }
@@ -12,7 +12,8 @@ resource "google_compute_instance_template" "front-template" {
    tags = ["front"]
 
    disk {
-      auto_delete = true
+      auto_delete  = true
+      boot         = true
       source_image = "ubuntu-os-cloud/ubuntu-1604-lts"
    }
 
@@ -71,15 +72,10 @@ resource "google_compute_instance" "back" {
     }
   }
 
-  // Local SSD disk
-  scratch_disk {
-  }
-
   network_interface {
     network = "default"
 
     access_config {
-      // Ephemeral IP
     }
   }
 
@@ -105,7 +101,6 @@ resource "google_compute_instance" "back" {
   metadata_startup_script = "echo hi > /test.txt"
 
   service_account {
-    scopes = ["userinfo-email", "compute-ro", "storage-ro"]
   }
 }
 
@@ -168,7 +163,7 @@ resource "google_sql_database_instance" "mysql" {
 #Firewall
 
 resource "google_compute_firewall" "default" {
-  name    = "tf-www-firewall"
+  name    = "java-app-firewall"
   network = "default"
 
   allow {
@@ -178,4 +173,10 @@ resource "google_compute_firewall" "default" {
 
   source_ranges = ["0.0.0.0/0"]
   target_tags   = ["front"]
+}
+
+resource "google_dns_managed_zone" "java-app-dns" {
+  name        = "java-app"
+  dns_name    = "java-app.com."
+  description = "java-app.com DNS zone"
 }
