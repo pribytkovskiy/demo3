@@ -1,12 +1,12 @@
 [back_server]
-back ansible_host=back ansible_user=root ansible_ssh_private_key_file=/home/dr_trem86/.ssh/gcloud_id_rsa
+back ansible_host=back
 
 [front_servers]
-front1 ansible_host=front1 ansible_user=root ansible_ssh_private_key_file=/home/dr_trem86/.ssh/gcloud_id_rsa
-front2 ansible_host=front2 ansible_user=root ansible_ssh_private_key_file=/home/dr_trem86/.ssh/gcloud_id_rsa
+front1 ansible_host=front1
+front2 ansible_host=front2
 
 [db_server]
-db ansible_host=db ansible_user=root ansible_ssh_private_key_file=/home/dr_trem86/.ssh/gcloud_id_rsa
+db ansible_host=db
 
 [all:children]
 back_server
