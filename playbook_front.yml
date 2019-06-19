@@ -1,0 +1,15 @@
+---
+- name: front_servers
+  hosts: front_servers
+  become: yes
+
+  tasks:
+
+  - name: install nodejs
+    shell: "curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - && apt-get install -y nodejs"
+
+  - name: clone repo and install npm
+    shell: "git clone https://github.com/pribytkovskiy/demo3.git && cd ./demo3/src/frontend && npm install"
+
+  - name: npm start
+    shell: "cd ./demo3/src/frontend && npm start"
