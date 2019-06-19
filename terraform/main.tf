@@ -102,64 +102,64 @@ resource "google_compute_instance" "back" {
 
 #Database
 
-resource "google_compute_instance" "db" {
-  count        = 2
-  name         = "db-${count.index + 1}"
-  machine_type = "g1-small"
+# resource "google_compute_instance" "db" {
+#   count        = 2
+#   name         = "db-${count.index + 1}"
+#   machine_type = "g1-small"
 
-  boot_disk {
-    initialize_params {
-      image = "ubuntu-os-cloud/ubuntu-1604-lts"
-    }
-  }
+#   boot_disk {
+#     initialize_params {
+#       image = "ubuntu-os-cloud/ubuntu-1604-lts"
+#     }
+#   }
 
-  network_interface {
-    network = "default"
+#   network_interface {
+#     network = "default"
 
-    access_config {
-    }
-  }
-}
+#     access_config {
+#     }
+#   }
+# }
 
-data "null_data_source" "auth_netw_mysql_allowed_1" {
-  count = "${length(google_compute_instance.db.*.self_link)}"
+# data "null_data_source" "auth_netw_mysql_allowed_1" {
+#   count = "${length(google_compute_instance.db.*.self_link)}"
 
-  inputs = {
-    name  = "db-${count.index + 1}"
-    value = "${element(google_compute_instance.db.*.network_interface.0.access_config.0.nat_ip, count.index)}"
-  }
-}
+#   inputs = {
+#     name  = "db-${count.index + 1}"
+#     value = "${element(google_compute_instance.db.*.network_interface.0.access_config.0.nat_ip, count.index)}"
+#   }
+# }
 
-data "null_data_source" "auth_netw_mysql_allowed_2" {
-  count = 2
+# data "null_data_source" "auth_netw_mysql_allowed_2" {
+#   count = 2
 
-  inputs = {
-    name  = "onprem-${count.index + 1}"
-    value = "${element(list("192.168.1.2", "192.168.2.3"), count.index)}"
-  }
-}
+#   inputs = {
+#     name  = "onprem-${count.index + 1}"
+#     value = "${element(list("192.168.1.2", "192.168.2.3"), count.index)}"
+#   }
+# }
 
-resource "random_id" "db_name_suffix" {
-  byte_length = 4
-}
+# resource "random_id" "db_name_suffix" {
+#   byte_length = 4
+# }
 
-resource "google_sql_database_instance" "mysql" {
-  name = "master-instance-${random_id.db_name_suffix.hex}"
-  database_version = "MYSQL_5_6"
+# resource "google_sql_database_instance" "mysql" {
+#   name = "master-instance-${random_id.db_name_suffix.hex}"
+#   database_version = "MYSQL_5_6"
 
-  settings {
-    tier = "D0"
+#   settings {
+#     tier = "D0"
 
-    ip_configuration {
-      ipv4_enabled = "true"
-    }
-  }
-}
+#     ip_configuration {
+#       ipv4_enabled = "true"
+#     }
+#   }
+# }
 
 #Firewall
 
 resource "google_compute_firewall" "default" {
-  name    = "java-app-firewall"
+  name    = "front open all in 80"
   network = "default"
 
   allow {
@@ -171,8 +171,23 @@ resource "google_compute_firewall" "default" {
   target_tags   = ["front"]
 }
 
-resource "google_dns_managed_zone" "java-app-dns" {
-  name        = "java-app"
-  dns_name    = "java-app.com."
-  description = "java-app.com DNS zone"
+resource "google_compute_firewall" "default" {
+  name    = "front open front in 8080"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["8080"]
+  }
+
+  source_tags = ["front"]
+  target_tags   = ["back"]
 }
+
+#DNS
+
+# resource "google_dns_managed_zone" "java-app-dns" {
+#   name        = "java-app"
+#   dns_name    = "java-app.com."
+#   description = "java-app.com DNS zone"
+# }
