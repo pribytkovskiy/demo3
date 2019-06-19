@@ -1,6 +1,6 @@
 ---
 - name: front_servers
-  hosts: front_servers
+  hosts: back_server
   become: yes
 
   tasks:
