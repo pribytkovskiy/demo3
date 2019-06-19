@@ -1,8 +1,8 @@
 provider "google" {
-  credentials = "${file("/home/dr_trem86/secrets/java-243611-6d1d9066ee2b.json")}"
-  project = "java-243611"
-  region  = "europe-west6-a"
-  zone    = "europe-west6-a"
+  credentials = "${file("${var.service_account_key_path}")}"
+  project = "${var.project}"
+  region  = "${var.region}"
+  zone    = "${var.zone}"
 }
 
 #Front
@@ -18,7 +18,7 @@ resource "google_compute_instance_template" "front-template" {
    }
 
    metadata = {
-      ssh-keys = "root:${file("/home/dr_trem86/.ssh/gcloud_id_rsa.pub")}"
+      ssh-keys = "root:${file("${var.public_key_path}")}"
    }
    
    network_interface {
@@ -67,8 +67,10 @@ resource "google_compute_instance" "back" {
   tags = ["back"]
 
   boot_disk {
+    auto_delete  = true
     initialize_params {
       image = "ubuntu-os-cloud/ubuntu-1604-lts"
+      size = 10
     }
   }
 
@@ -80,7 +82,7 @@ resource "google_compute_instance" "back" {
   }
 
   metadata = {
-    ssh-keys = "root:${file("/home/dr_trem86/.ssh/gcloud_id_rsa.pub")}"
+    ssh-keys = "root:${file("${var.public_key_path}")}"
   }
 
   provisioner "remote-exec" {
@@ -88,17 +90,14 @@ resource "google_compute_instance" "back" {
       host        = "back"
       type        = "ssh"
       user        = "root"
-      private_key = "${file("/home/dr_trem86/.ssh/gcloud_id_rsa")}"
+      private_key = "${file("${var.private_key_path}")}"
       agent       = false
     }
 
     inline = [
-      "echo hi >> 1.txt",
       "echo hi"
     ]
   }
-
-  metadata_startup_script = "echo hi > /test.txt"
 }
 
 #Database
