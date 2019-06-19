@@ -62,7 +62,7 @@ resource "google_compute_forwarding_rule" "front-proxy" {
 resource "google_compute_instance" "back" {
   name         = "back"
   machine_type = "g1-small"
-  zone         = "europe-west6-a"
+  zone         = "${var.zone}"
 
   tags = ["back"]
 
