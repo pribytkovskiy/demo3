@@ -1,0 +1,1 @@
+ssh -i /home/dr_trem86/.ssh/gcloud_id_rsa root@10.172.0.3

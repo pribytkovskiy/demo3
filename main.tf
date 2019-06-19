@@ -1,6 +1,6 @@
 provider "google" {
   credentials = "${file("/home/dr_trem86/secrets/java-243611-6d1d9066ee2b.json")}"
-  project = "{{java-243611}}"
+  project = "java-243611"
   region  = "europe-west6-a"
   zone    = "europe-west6-a"
 }
@@ -99,9 +99,6 @@ resource "google_compute_instance" "back" {
   }
 
   metadata_startup_script = "echo hi > /test.txt"
-
-  service_account {
-  }
 }
 
 #Database
