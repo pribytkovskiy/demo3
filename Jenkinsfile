@@ -27,7 +27,7 @@ pipeline {
         stage('Open app') {
             steps {
                 echo 'Open app'
-                sh 'gnome-open URL'
+                sh 'gnome-open https://i.ua'
             }
         }
     }
