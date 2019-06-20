@@ -88,15 +88,12 @@ resource "google_sql_database_instance" "master" {
   settings {
     tier = "D0"
   }
-
-  metadata = {
-    ssh-keys = "root:${file("${var.public_key_path}")}"
-  }
 }
 
 resource "google_sql_user" "users" {
   name     = "root"
   instance = "${google_sql_database_instance.master.name}"
+  host     = "%"
   password = "root"
 }
 
