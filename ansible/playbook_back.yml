@@ -1,9 +1,12 @@
 ---
-- name: front_servers
+- name: back_server
   hosts: back_server
   become: yes
 
   tasks:
+
+  - name: apt update
+    shell: "apt update"
 
   - name: install openjdk-8-jdk
     shell: "apt install -y openjdk-8-jdk"
