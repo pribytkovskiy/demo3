@@ -5,8 +5,7 @@ pipeline {
         stage('Terraform build') {
             steps {
                 echo 'Terraform build' 
-                sh 'ls -la'
-                cd './demo3/terraform'
+                sh 'cd ./terraform'
                 sh 'ls -la'
                 sh 'terraform init -input=false'
                 sh 'terraform apply -input=false -auto-approve'
@@ -17,14 +16,14 @@ pipeline {
         stage('Ansible build back') {
             steps {
                 echo 'Ansible build'
-                cd './demo3/ansible'
+                cd './ansible'
                 sh 'ansible-playbook playbook_back.yml'
             }
         }
         stage('Ansible build front') {
             steps {
                 echo 'Ansible build'
-                cd './demo3/ansible'
+                cd './ansible'
                 sh 'ansible-playbook playbook_front.yml'
             }
         }
