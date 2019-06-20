@@ -5,12 +5,13 @@ pipeline {
         stage('Terraform build') {
             steps {
                 echo 'Terraform build' 
-                sh 'cd ./terraform'
-                sh 'ls -la'
-                sh 'terraform init -input=false'
-                sh 'terraform apply -input=false -auto-approve'
-                echo 'Open app'
-                sh 'gnome-open http://i.ua'
+                dir("./terraform'") {
+                    sh 'ls -la'
+                    sh 'terraform init -input=false'
+                    sh 'terraform apply -input=false -auto-approve'
+                    echo 'Open app'
+                    sh 'gnome-open http://i.ua'
+                }
             }
         }
         stage('Ansible build back') {
