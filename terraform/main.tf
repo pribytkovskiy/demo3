@@ -8,7 +8,6 @@ provider "google" {
 #Front
 
 resource "google_compute_instance_template" "front_template" {
-  name         = "front-${count.index}"
   machine_type = "g1-small"
   tags = ["front-group"]
 
@@ -26,10 +25,11 @@ resource "google_compute_instance_template" "front_template" {
 }
 
 resource "google_compute_instance_group_manager" "front-group" {
+  count              = "${length(google_compute_instance_template.front_template.*.self_link)}"
   name               = "front-group"
   description        = "Terraform front instance group manager"
   instance_template  = "${google_compute_instance_template.front_template.self_link}"
-  base_instance_name = "front"
+  base_instance_name = "front-${count.index + 1}"
   zone               = "${var.zone}"
 
   target_size        = 2
