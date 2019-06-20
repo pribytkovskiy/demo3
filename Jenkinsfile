@@ -5,7 +5,7 @@ pipeline {
         stage('Terraform build') {
             steps {
                 echo 'Terraform build' 
-                dir("./terraform'") {
+                dir("./terraform") {
                     sh 'ls -la'
                     sh 'terraform init -input=false'
                     sh 'terraform apply -input=false -auto-approve'
