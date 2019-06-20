@@ -29,7 +29,7 @@ resource "google_compute_instance_group_manager" "front-group" {
   name               = "front-group"
   description        = "Terraform front instance group manager"
   instance_template  = "${google_compute_instance_template.front_template.self_link}"
-  base_instance_name = "front-${element(count.index)}"
+  base_instance_name = "front-${count.index}"
   zone               = "${var.zone}"
 
   target_size        = 2
