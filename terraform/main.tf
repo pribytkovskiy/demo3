@@ -80,7 +80,7 @@ resource "google_compute_instance" "back" {
 
 #Firewall
 
-resource "google_compute_firewall" "front open all in 80" {
+resource "google_compute_firewall" "front-open-all-in-80" {
   name    = "front open all in 80"
   network = "default"
 
@@ -93,7 +93,7 @@ resource "google_compute_firewall" "front open all in 80" {
   target_tags   = ["front"]
 }
 
-resource "google_compute_firewall" "front open front in 8080" {
+resource "google_compute_firewall" "front-open-front-in-8080" {
   name    = "front open front in 8080"
   network = "default"
 
