@@ -2,15 +2,10 @@ pipeline {
     agent any
 
     stages {
-        stage('Git clone') {
-            steps {
-                sh 'git clone https://github.com/pribytkovskiy/demo3.git'
-            }
-        }
         stage('Terraform build') {
             steps {
                 echo 'Terraform build' 
-                cd './demo3/terraform'
+                cd './terraform'
                 sh 'terraform init -input=false'
                 sh 'terraform apply -input=false -auto-approve'
             }
@@ -18,14 +13,14 @@ pipeline {
         stage('Ansible build back') {
             steps {
                 echo 'Ansible build'
-                cd './demo3/ansible'
+                cd './ansible'
                 sh 'ansible-playbook playbook_back.yml'
             }
         }
         stage('Ansible build front') {
             steps {
                 echo 'Ansible build'
-                cd './demo3/ansible'
+                cd './ansible'
                 sh 'ansible-playbook playbook_front.yml'
             }
         }
