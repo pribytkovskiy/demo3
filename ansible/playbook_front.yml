@@ -11,5 +11,8 @@
   - name: clone repo and install npm
     shell: "git clone https://github.com/pribytkovskiy/demo3.git && cd ./demo3/src/frontend && npm install"
 
+  - name: npm install pm2 -g
+    shell: "npm install pm2 -g"
+    
   - name: npm start
-    shell: "cd ./demo3/src/frontend && npm start"
+    shell: "cd ./demo3/src/frontend && pm2 start npm -- start"
