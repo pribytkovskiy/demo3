@@ -1,11 +1,11 @@
 variable "public_key_path" {
     description = "public_key_path"
-    default     = "/home/dr_trem86/.ssh/gcloud_id_rsa.pub"
+    default     = "/var/lib/jenkins/.ssh/gcloud_id_rsa.pub"
 }
 
 variable "private_key_path" {
     description = "Path to the private SSH key, used to access the instance."
-    default     = "/home/dr_trem86/.ssh/gcloud_id_rsa"
+    default     = "/var/lib/jenkins/.ssh/gcloud_id_rsa"
 }
 
 variable "service_account_key_path" {
