@@ -9,8 +9,6 @@ pipeline {
                     sh 'ls -la'
                     sh 'terraform init -input=false'
                     sh 'terraform apply -input=false -auto-approve'
-                    echo 'Open app'
-                    sh 'gnome-open http://i.ua'
                 }
             }
         }
@@ -26,12 +24,6 @@ pipeline {
                 echo 'Ansible build'
                 cd './ansible'
                 sh 'ansible-playbook playbook_front.yml'
-            }
-        }
-        stage('Open app') {
-            steps {
-                echo 'Open app'
-                sh 'gnome-open http://i.ua'
             }
         }
     }
