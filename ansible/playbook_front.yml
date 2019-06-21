@@ -1,10 +1,9 @@
 ---
 - name: front_servers
-  hosts: front_servers
+  hosts: back
   become: yes
 
   tasks:
-
   - name: install nodejs
     shell: "curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - && apt-get install -y nodejs"
 
