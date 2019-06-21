@@ -8,7 +8,7 @@ pipeline {
                 dir("./terraform") {
                     sh 'terraform init -input=false'
                     sh 'terraform apply -input=false -auto-approve'
-                    timeout(time: 60, unit: 'MINUTES') {
+                    timeout(time: 1, unit: 'MINUTES') {
                         echo 'timeout'
                     }
                 }
