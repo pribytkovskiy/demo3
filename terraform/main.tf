@@ -97,9 +97,9 @@ resource "google_sql_user" "root" {
   password = "root"
 }
 
-resource "google_sql_database" "db" {
+resource "google_sql_database" "db1" {
   name      = "bike_championship"
-  instance  = "db"
+  instance  = "db1"
 }
 
 #Firewall
