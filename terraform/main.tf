@@ -80,19 +80,19 @@ resource "random_id" "db_name_suffix" {
   byte_length = 4
 }
 
-resource "google_sql_database_instance" "master" {
+resource "google_sql_database_instance" "db" {
   name = "db"
   database_version = "MYSQL_5_6"
   region = "europe-west6"
 
   settings {
-    tier = "D0"
+    tier = "db-n1-standard-2"
   }
 }
 
 resource "google_sql_user" "users" {
   name     = "root"
-  instance = "${google_sql_database_instance.master.name}"
+  instance = "db"
   host     = "%"
   password = "root"
 }
