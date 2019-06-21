@@ -76,56 +76,56 @@ resource "google_compute_instance" "back" {
 
 #Database
 
-resource "random_id" "db_name_suffix" {
-  byte_length = 4
-}
+# resource "random_id" "db_name_suffix" {
+#   byte_length = 4
+# }
 
-resource "google_sql_database_instance" "db1" {
-  name = "db1"
-  database_version = "MYSQL_5_6"
-  region = "europe-west6"
+# resource "google_sql_database_instance" "db1" {
+#   name = "db1"
+#   database_version = "MYSQL_5_6"
+#   region = "europe-west6"
 
-  settings {
-    tier = "db-n1-standard-2"
-  }
-}
+#   settings {
+#     tier = "db-n1-standard-2"
+#   }
+# }
 
-resource "google_sql_user" "root" {
-  name     = "root"
-  instance = "db1"
-  host     = "%"
-  password = "root"
-}
+# resource "google_sql_user" "root" {
+#   name     = "root"
+#   instance = "db1"
+#   host     = "%"
+#   password = "root"
+# }
 
-resource "google_sql_database" "db1" {
-  name      = "bike_championship"
-  instance  = "db1"
-}
+# resource "google_sql_database" "db1" {
+#   name      = "bike_championship"
+#   instance  = "db1"
+# }
 
 #Firewall
 
-# resource "google_compute_firewall" "front-open-all-in-80" {
-#   name    = "front-open-all-in-80"
-#   network = "default"
+resource "google_compute_firewall" "front-open-all-in-80" {
+  name    = "front-open-all-in-80"
+  network = "default"
 
-#   allow {
-#     protocol = "tcp"
-#     ports    = ["80"]
-#   }
+  allow {
+    protocol = "tcp"
+    ports    = ["80"]
+  }
 
-#   source_ranges = ["0.0.0.0/0"]
-#   target_tags   = ["front"]
-# }
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["front"]
+}
 
-# resource "google_compute_firewall" "back-open-front-in-8080" {
-#   name    = "back-open-front-in-8080"
-#   network = "default"
+resource "google_compute_firewall" "back-open-front-in-8080" {
+  name    = "back-open-front-in-8080"
+  network = "default"
 
-#   allow {
-#     protocol = "tcp"
-#     ports    = ["8080"]
-#   }
+  allow {
+    protocol = "tcp"
+    ports    = ["8080"]
+  }
 
-#   source_tags = ["front"]
-#   target_tags   = ["back"]
-# }
+  source_tags = ["front"]
+  target_tags   = ["back"]
+}

@@ -2,15 +2,15 @@ pipeline {
     agent any
 
     stages {
-        //stage('Terraform build') {
-        //    steps {
-        //        echo 'Terraform build' 
-        //        dir("./terraform") {
-        //            sh 'terraform init -input=false'
-        //            sh 'terraform apply -input=false -auto-approve'
-        //        }
-        //    }
-        //}
+        stage('Terraform build') {
+           steps {
+               echo 'Terraform build' 
+               dir("./terraform") {
+                   sh 'terraform init -input=false'
+                   sh 'terraform apply -input=false -auto-approve'
+               }
+           }
+        }
         stage('Ansible build back') {
             steps {
                 echo 'Ansible build'
