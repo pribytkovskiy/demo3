@@ -17,7 +17,7 @@ pipeline {
                 sh 'ls -la'
                 dir("./ansible") {
                     sh 'ls -la'
-                    sh 'ansible-playbook playbook_back.yml'
+                    sh 'ansible-playbook playbook_back.yml -vvv'
                 }
             }
         }
