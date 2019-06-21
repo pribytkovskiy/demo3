@@ -6,7 +6,7 @@ After=networking.service
 
 [Service]
 WorkingDirectory=/usr/local/bin
-ExecStart=/usr/local/bin/cloud_sql_proxy -dir=/var/run/cloud-sql-proxy -instances=dulcet-cat-242615:europe-west6:bike-championship=tcp:3306 -credential_file=dulcet-cat-242615-da3d51e311df.json
+ExecStart=/usr/local/bin/cloud_sql_proxy -dir=/var/run/cloud-sql-proxy -instances=java-243611:europe-west6:db=tcp:3306 -credential_file=/var/lib/jenkins/.ssh/java-243611-5d8bde4edca0.json
 Restart=always
 StandardOutput=journal
 User=root

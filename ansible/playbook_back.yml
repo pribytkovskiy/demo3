@@ -7,14 +7,43 @@
   - name: apt update
     shell: "apt update"
 
-  - name: install openjdk-8-jdk
-    shell: "apt install -y openjdk-8-jdk"
+# cloud_sql_proxy
 
-  - name: maven
-    shell: "apt -y install maven"
+  - name: download cloud_sql_proxy
+    shell: "wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy"
 
-  - name: clone repo and install mvnw
-    shell: "git clone https://github.com/pribytkovskiy/demo3.git && cd ./demo3/src/backend && sh ./mvnw install"
+  - name: copy cloud-sql-proxy
+    copy:
+      src: ./cloud_sql_proxy
+      dest: /usr/local/bin/cloud_sql_proxy
+      owner: jenkins
+      group: jenkins
+      mode: '0644'
 
-  - name: mvnw start
-    shell: "sh ./mvnw spring-boot:run -f ./server/"
+  - name: make run cloud-sql-proxy
+    shell: "chmod +x /usr/local/bin/cloud_sql_proxy"
+
+  - name: copy cloud-sql-proxy.service
+    copy:
+      src: ./demo3/support/db/cloud-sql-proxy.service
+      dest: /etc/systemd/system/cloud-sql-proxy.service
+      owner: jenkins
+      group: jenkins
+      mode: '0644'
+
+  - name: start daemon cloud-sql-proxy
+    shell: "systemctl daemon-reload && start cloud-sql-proxy"
+
+# back
+
+  # - name: install openjdk-8-jdk
+  #   shell: "apt install -y openjdk-8-jdk"
+
+  # - name: maven
+  #   shell: "apt -y install maven"
+
+  # - name: clone repo and install mvnw
+  #   shell: "git clone https://github.com/pribytkovskiy/demo3.git && cd ./demo3/src/backend && sh ./mvnw install"
+
+  # - name: mvnw start
+  #   shell: "sh ./mvnw spring-boot:run -f ./server/"
