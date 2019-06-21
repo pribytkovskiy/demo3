@@ -97,6 +97,11 @@ resource "google_sql_user" "root" {
   password = "root"
 }
 
+resource "google_sql_database" "db" {
+  name      = "bike_championship"
+  instance  = "db"
+}
+
 #Firewall
 
 # resource "google_compute_firewall" "front-open-all-in-80" {

@@ -8,7 +8,7 @@ spring:
     driver: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/bike_championship?useUnicode=true&characterEncoding=utf8&useSSL=false&verifyS$
     username: root
-    password: bike-championship
+    password: root
   jpa:
     hibernate:
       ddl-auto: create-drop
