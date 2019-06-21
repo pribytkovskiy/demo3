@@ -47,55 +47,55 @@ provider "google" {
 
 #Back
 
-resource "google_compute_instance" "back" {
-  name         = "back"
-  machine_type = "g1-small"
-  zone         = "${var.zone}"
+# resource "google_compute_instance" "back" {
+#   name         = "back"
+#   machine_type = "g1-small"
+#   zone         = "${var.zone}"
 
-  tags = ["back"]
+#   tags = ["back"]
 
-  boot_disk {
-    auto_delete  = true
-    initialize_params {
-      image = "ubuntu-os-cloud/ubuntu-1604-lts"
-      size = 10
-    }
-  }
+#   boot_disk {
+#     auto_delete  = true
+#     initialize_params {
+#       image = "ubuntu-os-cloud/ubuntu-1604-lts"
+#       size = 10
+#     }
+#   }
 
-  network_interface {
-    network = "default"
+#   network_interface {
+#     network = "default"
 
-    access_config {
-    }
-  }
+#     access_config {
+#     }
+#   }
 
-  metadata = {
-    ssh-keys = "root:${file("${var.public_key_path}")}"
-  }
-}
-
-#Database
-
-# resource "random_id" "db_name_suffix" {
-#   byte_length = 4
-# }
-
-# resource "google_sql_database_instance" "master" {
-#   name = "db"
-#   database_version = "MYSQL_5_6"
-#   region = "europe-west6"
-
-#   settings {
-#     tier = "D0"
+#   metadata = {
+#     ssh-keys = "root:${file("${var.public_key_path}")}"
 #   }
 # }
 
-# resource "google_sql_user" "users" {
-#   name     = "root"
-#   instance = "${google_sql_database_instance.master.name}"
-#   host     = "%"
-#   password = "root"
-# }
+#Database
+
+resource "random_id" "db_name_suffix" {
+  byte_length = 4
+}
+
+resource "google_sql_database_instance" "master" {
+  name = "db"
+  database_version = "MYSQL_5_6"
+  region = "europe-west6"
+
+  settings {
+    tier = "D0"
+  }
+}
+
+resource "google_sql_user" "users" {
+  name     = "root"
+  instance = "${google_sql_database_instance.master.name}"
+  host     = "back"
+  password = "root"
+}
 
 #Firewall
 

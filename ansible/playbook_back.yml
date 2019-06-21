@@ -46,14 +46,14 @@
 
 # back
 
-  # - name: install openjdk-8-jdk
-  #   shell: "apt install -y openjdk-8-jdk"
+  - name: install openjdk-8-jdk
+    shell: "apt install -y openjdk-8-jdk"
 
-  # - name: maven
-  #   shell: "apt -y install maven"
+  - name: maven
+    shell: "apt -y install maven"
 
-  # - name: install mvnw
-  #   shell: "cd ./demo3/src/backend && sh ./mvnw install"
+  - name: install mvnw
+    shell: "cd ./demo3/src/backend && sh ./mvnw install"
 
-  # - name: mvnw start
-  #   shell: "sh ./mvnw spring-boot:run -f ./server/"
+  - name: mvnw start
+    shell: "sh ./mvnw spring-boot:run -f ./server/"
