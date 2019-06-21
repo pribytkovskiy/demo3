@@ -14,10 +14,10 @@ pipeline {
         stage('Ansible build back') {
             steps {
                 echo 'Ansible build'
-                sh 'ls -la'
-                dir("./ansible") {
-                    sh 'ls -la'
-                    sh 'ansible-playbook playbook_back.yml -vvvv'
+                timeout(time: 1, unit: 'MINUTES') {
+                    dir("./ansible") {
+                        sh 'ansible-playbook playbook_back.yml -vvvv'
+                    }
                 }
             }
         }

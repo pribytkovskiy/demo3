@@ -4,9 +4,6 @@
   become: yes
 
   tasks:
-
-  - pause: seconds=60
-
   - name: apt update
     shell: "apt update"
 
