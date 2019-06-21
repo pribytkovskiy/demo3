@@ -92,7 +92,7 @@ resource "google_sql_database_instance" "master" {
 
 resource "google_sql_user" "users" {
   name     = "root"
-  instance = "db
+  instance = "db"
   host     = "%"
   password = "root"
 }
