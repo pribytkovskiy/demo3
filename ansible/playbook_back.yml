@@ -10,11 +10,11 @@
 # cloud_sql_proxy
 
   - name: download cloud_sql_proxy
-    shell: "wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy"
+    shell: "wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy && ls -la"
 
   - name: copy cloud-sql-proxy
     copy:
-      src: ./cloud_sql_proxy
+      src: cloud_sql_proxy
       dest: /usr/local/bin/cloud_sql_proxy
       owner: jenkins
       group: jenkins

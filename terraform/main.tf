@@ -7,43 +7,43 @@ provider "google" {
 
 #Front
 
-resource "google_compute_instance_template" "front_template" {
-  machine_type = "g1-small"
-  tags = ["front-group"]
+# resource "google_compute_instance_template" "front_template" {
+#   machine_type = "g1-small"
+#   tags = ["front-group"]
 
-  network_interface {
-    network = "default"
-    access_config {
-    }
-  }
+#   network_interface {
+#     network = "default"
+#     access_config {
+#     }
+#   }
 
-  disk {
-    auto_delete  = true
-    boot         = true
-    source_image = "ubuntu-os-cloud/ubuntu-1604-lts"
-  }
-}
+#   disk {
+#     auto_delete  = true
+#     boot         = true
+#     source_image = "ubuntu-os-cloud/ubuntu-1604-lts"
+#   }
+# }
 
-resource "google_compute_instance_group_manager" "front-group" {
-  name               = "front-group"
-  description        = "Terraform front instance group manager"
-  instance_template  = "${google_compute_instance_template.front_template.self_link}"
-  base_instance_name = "front"
-  zone               = "${var.zone}"
+# resource "google_compute_instance_group_manager" "front-group" {
+#   name               = "front-group"
+#   description        = "Terraform front instance group manager"
+#   instance_template  = "${google_compute_instance_template.front_template.self_link}"
+#   base_instance_name = "front"
+#   zone               = "${var.zone}"
 
-  target_size        = 2
-  target_pools       = ["${google_compute_target_pool.front-pool.self_link}"]
+#   target_size        = 2
+#   target_pools       = ["${google_compute_target_pool.front-pool.self_link}"]
 
-  named_port {
-    name = "front-port"
-    port = 3000
-  }
-}
+#   named_port {
+#     name = "front-port"
+#     port = 3000
+#   }
+# }
 
-resource "google_compute_target_pool" "front-pool" {
-  name    = "front-pool"
-  region  = "europe-west6"
-}
+# resource "google_compute_target_pool" "front-pool" {
+#   name    = "front-pool"
+#   region  = "europe-west6"
+# }
 
 #Back
 
@@ -99,28 +99,28 @@ resource "google_compute_instance" "back" {
 
 #Firewall
 
-resource "google_compute_firewall" "front-open-all-in-80" {
-  name    = "front-open-all-in-80"
-  network = "default"
+# resource "google_compute_firewall" "front-open-all-in-80" {
+#   name    = "front-open-all-in-80"
+#   network = "default"
 
-  allow {
-    protocol = "tcp"
-    ports    = ["80"]
-  }
+#   allow {
+#     protocol = "tcp"
+#     ports    = ["80"]
+#   }
 
-  source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["front"]
-}
+#   source_ranges = ["0.0.0.0/0"]
+#   target_tags   = ["front"]
+# }
 
-resource "google_compute_firewall" "back-open-front-in-8080" {
-  name    = "back-open-front-in-8080"
-  network = "default"
+# resource "google_compute_firewall" "back-open-front-in-8080" {
+#   name    = "back-open-front-in-8080"
+#   network = "default"
 
-  allow {
-    protocol = "tcp"
-    ports    = ["8080"]
-  }
+#   allow {
+#     protocol = "tcp"
+#     ports    = ["8080"]
+#   }
 
-  source_tags = ["front"]
-  target_tags   = ["back"]
-}
+#   source_tags = ["front"]
+#   target_tags   = ["back"]
+# }
