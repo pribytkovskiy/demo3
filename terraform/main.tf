@@ -92,8 +92,8 @@ resource "google_sql_database_instance" "master" {
 
 resource "google_sql_user" "users" {
   name     = "root"
-  instance = "${google_sql_database_instance.master.name}"
-  host     = "back"
+  instance = "db
+  host     = "%"
   password = "root"
 }
 
