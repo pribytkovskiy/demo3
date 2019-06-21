@@ -7,32 +7,42 @@
   - name: apt update
     shell: "apt update"
 
+  - name: clone repo
+    shell: "git clone https://github.com/pribytkovskiy/demo3.git"
+
 # cloud_sql_proxy
 
   - name: download cloud_sql_proxy
-    shell: "wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy && ls -la"
+    shell: "wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy"
+
+  - name: dir
+    shell: "realpath cloud_sql_proxy"
 
   - name: copy cloud-sql-proxy
     copy:
-      src: cloud_sql_proxy
+      remote_src: yes
+      src: ~/cloud_sql_proxy
       dest: /usr/local/bin/cloud_sql_proxy
-      owner: jenkins
-      group: jenkins
-      mode: '0644'
 
   - name: make run cloud-sql-proxy
     shell: "chmod +x /usr/local/bin/cloud_sql_proxy"
 
   - name: copy cloud-sql-proxy.service
     copy:
-      src: ./demo3/support/db/cloud-sql-proxy.service
+      remote_src: yes
+      src: ~/demo3/support/db/cloud-sql-proxy.service
       dest: /etc/systemd/system/cloud-sql-proxy.service
-      owner: jenkins
-      group: jenkins
-      mode: '0644'
+
+  - name: copy credential_file
+    copy:
+      src: /var/lib/jenkins/.ssh/java-243611-5d8bde4edca0.json
+      dest: ./java-243611-5d8bde4edca0.json
+
+  - name: systemctl daemon-reload
+    shell: "systemctl daemon-reload"
 
   - name: start daemon cloud-sql-proxy
-    shell: "systemctl daemon-reload && start cloud-sql-proxy"
+    shell: "service cloud-sql-proxy start"
 
 # back
 
@@ -42,8 +52,8 @@
   # - name: maven
   #   shell: "apt -y install maven"
 
-  # - name: clone repo and install mvnw
-  #   shell: "git clone https://github.com/pribytkovskiy/demo3.git && cd ./demo3/src/backend && sh ./mvnw install"
+  # - name: install mvnw
+  #   shell: "cd ./demo3/src/backend && sh ./mvnw install"
 
   # - name: mvnw start
   #   shell: "sh ./mvnw spring-boot:run -f ./server/"
