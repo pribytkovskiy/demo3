@@ -56,4 +56,4 @@
     shell: "cd ./demo3/src/backend && sh ./mvnw install"
 
   - name: mvnw start
-    shell: "sh ./mvnw spring-boot:run -f ./server/"
+    shell: "cd ./demo3/src/backend && sh ./mvnw spring-boot:run -f ./server/"

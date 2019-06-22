@@ -90,16 +90,16 @@ resource "google_compute_instance" "back" {
 #   }
 # }
 
+# resource "google_sql_database" "db1" {
+#   name      = "bike_championship"
+#   instance  = "db1"
+# }
+
 # resource "google_sql_user" "root" {
 #   name     = "root"
 #   instance = "db1"
 #   host     = "%"
 #   password = "root"
-# }
-
-# resource "google_sql_database" "db1" {
-#   name      = "bike_championship"
-#   instance  = "db1"
 # }
 
 #Firewall
