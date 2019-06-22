@@ -104,28 +104,28 @@ resource "google_compute_instance" "back" {
 
 #Firewall
 
-resource "google_compute_firewall" "front-open-all-in-80" {
-  name    = "front-open-all-in-80"
-  network = "default"
+# resource "google_compute_firewall" "front-open-all-in-80" {
+#   name    = "front-open-all-in-80"
+#   network = "default"
 
-  allow {
-    protocol = "tcp"
-    ports    = ["80"]
-  }
+#   allow {
+#     protocol = "tcp"
+#     ports    = ["80"]
+#   }
 
-  source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["front"]
-}
+#   source_ranges = ["0.0.0.0/0"]
+#   target_tags   = ["front"]
+# }
 
-resource "google_compute_firewall" "back-open-front-in-8080" {
-  name    = "back-open-front-in-8080"
-  network = "default"
+# resource "google_compute_firewall" "back-open-front-in-8080" {
+#   name    = "back-open-front-in-8080"
+#   network = "default"
 
-  allow {
-    protocol = "tcp"
-    ports    = ["8080"]
-  }
+#   allow {
+#     protocol = "tcp"
+#     ports    = ["8080"]
+#   }
 
-  source_tags = ["front"]
-  target_tags   = ["back"]
-}
+#   source_tags = ["front"]
+#   target_tags   = ["back"]
+# }
