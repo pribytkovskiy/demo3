@@ -55,5 +55,17 @@
   - name: install mvnw
     shell: "cd ./demo3/src/backend && sh ./mvnw install"
 
-  - name: mvnw start
-    shell: "cd ./demo3/src/backend && sh ./mvnw spring-boot:run -f ./server/"
+  - name: copy java_app.service
+    copy:
+      remote_src: yes
+      src: ~/demo3/support/back/java_app.service
+      dest: /etc/systemd/system/java_app.service
+
+  - name: systemctl daemon-reload
+    shell: "systemctl daemon-reload"
+
+  - name: start daemon java_app
+    shell: "service java_app start"
+
+  # - name: mvnw start
+  #   shell: "cd ./demo3/src/backend && sh ./mvnw spring-boot:run -f ./server/"
