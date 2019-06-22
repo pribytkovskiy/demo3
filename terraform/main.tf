@@ -78,7 +78,7 @@ resource "google_compute_instance_group" "front-group" {
   zone = "${var.zone}"
 }
 
-resource "google_compute_target_pool" "front" {
+resource "google_compute_target_pool" "front-pool" {
   name = "front-pool"
 
   instances = [
@@ -133,7 +133,7 @@ resource "google_compute_http_health_check" "front-health-check" {
 
 # resource "google_compute_target_pool" "front-pool" {
 #   name    = "front-pool"
-#   region  = "europe-west6"
+#   region  = "${var.region}"
 # }
 
 #Back
@@ -174,7 +174,7 @@ resource "google_compute_http_health_check" "front-health-check" {
 # resource "google_sql_database_instance" "db1" {
 #   name = "db1"
 #   database_version = "MYSQL_5_6"
-#   region = "europe-west6"
+#   region = "${var.region}"
 
 #   settings {
 #     tier = "db-n1-standard-2"
