@@ -72,7 +72,7 @@ resource "google_compute_instance_group" "front-group" {
 
   named_port {
     name = "http"
-    port = "8080"
+    port = "3000"
   }
 
   zone = "${var.zone}"
@@ -92,6 +92,7 @@ resource "google_compute_target_pool" "front-pool" {
 }
 
 resource "google_compute_http_health_check" "front-health-check" {
+  port               = 3000
   name               = "front-health-check"
   request_path       = "/"
   check_interval_sec = 60
@@ -195,18 +196,18 @@ resource "google_compute_http_health_check" "front-health-check" {
 
 #Firewall
 
-# resource "google_compute_firewall" "front-open-all-in-80" {
-#   name    = "front-open-all-in-80"
-#   network = "default"
+resource "google_compute_firewall" "front-open-all-in-3000" {
+  name    = "front-open-all-in-3000"
+  network = "default"
 
-#   allow {
-#     protocol = "tcp"
-#     ports    = ["80"]
-#   }
+  allow {
+    protocol = "tcp"
+    ports    = ["3000"]
+  }
 
-#   source_ranges = ["0.0.0.0/0"]
-#   target_tags   = ["front"]
-# }
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["front-pool"]
+}
 
 # resource "google_compute_firewall" "back-open-front-in-8080" {
 #   name    = "back-open-front-in-8080"
@@ -220,3 +221,14 @@ resource "google_compute_http_health_check" "front-health-check" {
 #   source_tags = ["front"]
 #   target_tags   = ["back"]
 # }
+
+resource "google_compute_address" "front-pool" {
+    name = "front-pool"
+}
+
+resource "google_compute_forwarding_rule" "front-pool" {
+  name = "front-pool"
+  target = "${google_compute_target_pool.front-pool.self_link}"
+  ip_address = "${google_compute_address.front-pool.address}"
+  port_range = "3000"
+}
