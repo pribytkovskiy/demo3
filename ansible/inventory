@@ -2,8 +2,8 @@
 back ansible_host=back
 
 [front_servers]
-front1 ansible_host=front1
-front2 ansible_host=front2
+front-1 ansible_host=front-1
+front-2 ansible_host=front-2
 
 [db_server]
 db ansible_host=db

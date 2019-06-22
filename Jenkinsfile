@@ -19,13 +19,13 @@ pipeline {
         //         }
         //     }
         // }
-        // stage('Ansible build front') {
-        //     steps {
-        //         echo 'Ansible build'
-        //         dir("./ansible") {
-        //             sh 'ansible-playbook playbook_front.yml'
-        //         }
-        //     }
-        // }
+        stage('Ansible build front') {
+            steps {
+                echo 'Ansible build'
+                dir("./ansible") {
+                    sh 'ansible-playbook playbook_front.yml'
+                }
+            }
+        }
     }
 }
