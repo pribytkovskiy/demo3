@@ -206,7 +206,7 @@ resource "google_compute_firewall" "front-open-all-in-3000" {
   }
 
   source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["front-pool"]
+  target_tags   = ["www-app"]
 }
 
 # resource "google_compute_firewall" "back-open-front-in-8080" {
@@ -222,13 +222,13 @@ resource "google_compute_firewall" "front-open-all-in-3000" {
 #   target_tags   = ["back"]
 # }
 
-resource "google_compute_address" "front-pool" {
-    name = "front-pool"
+resource "google_compute_address" "www-app" {
+    name = "www-app"
 }
 
 resource "google_compute_forwarding_rule" "front-pool" {
   name = "front-pool"
   target = "${google_compute_target_pool.front-pool.self_link}"
-  ip_address = "${google_compute_address.front-pool.address}"
+  ip_address = "${google_compute_address.www-app.address}"
   port_range = "3000"
 }
