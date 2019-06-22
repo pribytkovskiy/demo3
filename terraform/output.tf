@@ -3,5 +3,5 @@ output "public_ip" {
 }
 
 output "instance_front_pool_ips" {
-  value = "${join(" ", google_compute_instance.front-pool.*.network_interface.0.access_config.0.assigned_nat_ip)}"
+  value = "${join(" ", google_compute_instance.front.*.network_interface.0.access_config.0.assigned_nat_ip)}"
 }
