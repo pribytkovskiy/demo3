@@ -1,3 +1,3 @@
 output "public_ip" {
-  value = "${google_compute_address.front-pool.address}"
+  value = "${google_compute_address.www-app.address}"
 }
