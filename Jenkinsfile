@@ -11,14 +11,14 @@ pipeline {
                }
            }
         }
-        // stage('Ansible build back') {
-        //     steps {
-        //         echo 'Ansible build'
-        //         dir("./ansible") {
-        //             sh 'ansible-playbook playbook_back.yml'
-        //         }
-        //     }
-        // }
+        stage('Ansible build back') {
+            steps {
+                echo 'Ansible build'
+                dir("./ansible") {
+                    sh 'ansible-playbook playbook_back.yml'
+                }
+            }
+        }
         // stage('Ansible build front') {
         //     steps {
         //         echo 'Ansible build'
