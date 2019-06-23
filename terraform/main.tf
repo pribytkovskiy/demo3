@@ -11,8 +11,8 @@ resource "random_id" "db_name_suffix" {
   byte_length = 4
 }
 
-resource "google_sql_database_instance" "db2" {
-  name = "db2"
+resource "google_sql_database_instance" "db3" {
+  name = "db3"
   database_version = "MYSQL_5_6"
   region = "${var.region}"
 
@@ -108,9 +108,9 @@ resource "google_compute_instance" "back" {
 
 #Database database
 
-resource "google_sql_database" "db2" {
+resource "google_sql_database" "db3" {
   name      = "bike_championship"
-  instance  = "db2"
+  instance  = "db3"
 }
 
 #Firewall
@@ -156,7 +156,7 @@ resource "google_compute_forwarding_rule" "front-pool" {
 
 resource "google_sql_user" "root" {
   name     = "root"
-  instance = "db2"
+  instance = "db3"
   host     = "%"
   password = "root"
 }
