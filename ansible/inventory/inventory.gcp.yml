@@ -5,8 +5,8 @@ projects: java-243611
 service_account_file: "/home/dr_trem86/secrets/java-243611-6d1d9066ee2b.json"
 auth_kind: serviceaccount
 groups:
-  back_server: "'back' in name"
   front_servers: "'front' in name"
+  back_server: "'back' in name"
 hostnames:
   - name
   - public_ip

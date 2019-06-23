@@ -9,7 +9,7 @@ provider "google" {
 
 resource "google_compute_instance_template" "front_template" {
   machine_type = "g1-small"
-  tags = ["front-group"]
+  tags = ["front"]
 
   network_interface {
     network = "default"

@@ -1,7 +1,0 @@
----
-- name: playbook_set_front_nat_ip_back
-  hosts: back_server
-  become: yes
-
-  tasks:
-    - debug: msg="{{ ansible_host }}"
