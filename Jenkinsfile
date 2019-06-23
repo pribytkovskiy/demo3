@@ -14,7 +14,7 @@ pipeline {
         stage('Ansible build back') {
             steps {
                 echo 'Ansible build'
-                dir("./ansible/ansible_back") {
+                dir("./ansible") {
                     sh 'ansible-playbook playbook_back.yml'
                 }
             }
@@ -22,7 +22,7 @@ pipeline {
         stage('Ansible build front') {
             steps {
                 echo 'Ansible build'
-                dir("./ansible/ansible_front") {
+                dir("./ansible") {
                     sh 'ansible-playbook playbook_front.yml'
                 }
             }
