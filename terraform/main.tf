@@ -5,6 +5,22 @@ provider "google" {
   zone    = "${var.zone}"
 }
 
+#Database instance
+
+resource "random_id" "db_name_suffix" {
+  byte_length = 4
+}
+
+resource "google_sql_database_instance" "db2" {
+  name = "db2"
+  database_version = "MYSQL_5_6"
+  region = "${var.region}"
+
+  settings {
+    tier = "db-n1-standard-2"
+  }
+}
+
 #Front
 
 resource "google_compute_instance_template" "front_template" {
@@ -90,32 +106,11 @@ resource "google_compute_instance" "back" {
   }
 }
 
-#Database
-
-resource "random_id" "db_name_suffix" {
-  byte_length = 4
-}
-
-resource "google_sql_database_instance" "db2" {
-  name = "db2"
-  database_version = "MYSQL_5_6"
-  region = "${var.region}"
-
-  settings {
-    tier = "db-n1-standard-2"
-  }
-}
+#Database database
 
 resource "google_sql_database" "db2" {
   name      = "bike_championship"
   instance  = "db2"
-}
-
-resource "google_sql_user" "root" {
-  name     = "root"
-  instance = "db2"
-  host     = "%"
-  password = "root"
 }
 
 #Firewall
@@ -155,4 +150,13 @@ resource "google_compute_forwarding_rule" "front-pool" {
   target = "${google_compute_target_pool.front-pool.self_link}"
   ip_address = "${google_compute_address.www-app.address}"
   port_range = "3000"
+}
+
+#Database user
+
+resource "google_sql_user" "root" {
+  name     = "root"
+  instance = "db2"
+  host     = "%"
+  password = "root"
 }
