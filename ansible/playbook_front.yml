@@ -10,6 +10,18 @@
   - name: clone repo and install npm
     shell: "git clone https://github.com/pribytkovskiy/demo3.git && cd ./demo3/src/frontend && npm install"
 
+  - name: replace constants.js
+    replace:
+      path: ./demo3/src/frontend/src/constants/constants.js
+      regexp: "adr"
+      replace: "{{ ansible_host }}"
+
+  - name: replace package.json
+    replace:
+      path: ./demo3/src/frontend/package.json
+      regexp: "adr"
+      replace: "{{ ansible_host }}"
+
   - name: npm install pm2 -g
     shell: "npm install pm2 -g"
     

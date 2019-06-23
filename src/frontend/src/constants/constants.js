@@ -1,5 +1,5 @@
-export const ONLINE_API_URL = process.env.NODE_ENV === 'production' ? 'http://10.172.0.2:8080/api' : 'http://10.172.0.2:8080/api';
-export const OFFLINE_API_URL = 'http://10.172.0.2:8080/api';
+export const ONLINE_API_URL = process.env.NODE_ENV === 'production' ? 'http://adr:8080/api' : 'http://adr:8080/api';
+export const OFFLINE_API_URL = 'http://adr:8080/api';
 export const ACCESS_TOKEN = 'Jwt Token';
 export const EMAIL_MAX_LENGTH = 255;
 export const NAME_MIN_LENGTH = 2;
