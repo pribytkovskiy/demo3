@@ -90,35 +90,35 @@ resource "google_compute_instance" "back" {
   }
 }
 
-#Database
+Database
 
-# resource "random_id" "db_name_suffix" {
-#   byte_length = 4
-# }
+resource "random_id" "db_name_suffix" {
+  byte_length = 4
+}
 
-# resource "google_sql_database_instance" "db1" {
-#   name = "db1"
-#   database_version = "MYSQL_5_6"
-#   region = "${var.region}"
+resource "google_sql_database_instance" "db2" {
+  name = "db2"
+  database_version = "MYSQL_5_6"
+  region = "${var.region}"
 
-#   settings {
-#     tier = "db-n1-standard-2"
-#   }
-# }
+  settings {
+    tier = "db-n1-standard-2"
+  }
+}
 
-# resource "google_sql_database" "db1" {
-#   name      = "bike_championship"
-#   instance  = "db1"
-# }
+resource "google_sql_database" "db2" {
+  name      = "bike_championship"
+  instance  = "db2"
+}
 
-# resource "google_sql_user" "root" {
-#   name     = "root"
-#   instance = "db1"
-#   host     = "%"
-#   password = "root"
-# }
+resource "google_sql_user" "root" {
+  name     = "root"
+  instance = "db2"
+  host     = "%"
+  password = "root"
+}
 
-#Firewall
+Firewall
 
 resource "google_compute_firewall" "front-open-all-in-3000" {
   name    = "front-open-all-in-3000"
