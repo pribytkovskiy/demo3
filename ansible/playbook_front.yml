@@ -14,13 +14,13 @@
     replace:
       path: ./demo3/src/frontend/src/constants/constants.js
       regexp: "adr"
-      replace: "{{ back_ip }}"
+      replace: "{{ hostvars.back.networkInterfaces[0].accessConfigs[0].natIP }}"
 
   - name: replace package.json
     replace:
       path: ./demo3/src/frontend/package.json
       regexp: "adr"
-      replace: "{{ back_ip }}"
+      replace: "{{ hostvars.back.networkInterfaces[0].accessConfigs[0].natIP }}"
 
   - name: npm install pm2 -g
     shell: "npm install pm2 -g"
