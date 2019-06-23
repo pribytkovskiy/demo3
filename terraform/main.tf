@@ -22,6 +22,10 @@ resource "google_compute_instance_template" "front_template" {
     boot         = true
     source_image = "ubuntu-os-cloud/ubuntu-1604-lts"
   }
+
+  metadata = {
+    ssh-keys = "root:${file("${var.public_key_path}")}"
+  }
 }
 
 resource "google_compute_instance_group_manager" "front-group" {
@@ -37,10 +41,6 @@ resource "google_compute_instance_group_manager" "front-group" {
   named_port {
     name = "http"
     port = 3000
-  }
-
-  metadata = {
-    ssh-keys = "root:${file("${var.public_key_path}")}"
   }
 }
 
