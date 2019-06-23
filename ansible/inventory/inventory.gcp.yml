@@ -5,9 +5,11 @@ projects: java-243611
 service_account_file: "/home/dr_trem86/secrets/java-243611-6d1d9066ee2b.json"
 auth_kind: serviceaccount
 groups:
+  front_servers: "'front' in name"
   back_server: "'back' in name"
 hostnames:
   - name
   - public_ip
 compose:
   ansible_host: networkInterfaces[0].accessConfigs[0].natIP
+  back_ip: back_server.networkInterfaces[0].accessConfigs[0].natIP
