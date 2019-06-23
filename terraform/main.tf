@@ -171,8 +171,8 @@ resource "google_compute_firewall" "front-open-all-in-3000" {
   target_tags   = ["front"]
 }
 
-resource "google_compute_firewall" "back-open-front-in-8080" {
-  name    = "back-open-front-in-8080"
+resource "google_compute_firewall" "back-open-all-in-8080" {
+  name    = "back-open-all-in-8080"
   network = "default"
 
   allow {
@@ -180,7 +180,7 @@ resource "google_compute_firewall" "back-open-front-in-8080" {
     ports    = ["8080"]
   }
 
-  source_tags = ["front"]
+  source_ranges = ["0.0.0.0/0"]
   target_tags   = ["back"]
 }
 

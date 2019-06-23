@@ -87,10 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .cors()
                 .and()
-            .csrf()
-            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and()
-            .addFilterBefore(corsFilter, CsrfFilter.class)
+            .csrf().disable()
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             .exceptionHandling()
             .authenticationEntryPoint(unauthorizedHandler)
