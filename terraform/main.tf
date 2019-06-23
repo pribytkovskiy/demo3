@@ -90,7 +90,7 @@ resource "google_compute_instance" "back" {
   }
 }
 
-Database
+#Database
 
 resource "random_id" "db_name_suffix" {
   byte_length = 4
