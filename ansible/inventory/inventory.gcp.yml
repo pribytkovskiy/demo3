@@ -12,4 +12,4 @@ hostnames:
   - public_ip
 compose:
   ansible_host: networkInterfaces[0].accessConfigs[0].natIP
-  back_ip: back_server.networkInterfaces[0].accessConfigs[0].natIP
+  back_ip: back_server.back.networkInterfaces[0].accessConfigs[0].natIP
