@@ -118,7 +118,7 @@ resource "google_sql_user" "root" {
   password = "root"
 }
 
-Firewall
+#Firewall
 
 resource "google_compute_firewall" "front-open-all-in-3000" {
   name    = "front-open-all-in-3000"
