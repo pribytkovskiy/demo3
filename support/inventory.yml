@@ -1,8 +1,0 @@
----
-- name: instance_facts
-  gcp_compute_instance_facts:
-    zone: europe-west6-a
-    project: java-243611
-    auth_kind: serviceaccount
-    service_account_file: "/home/dr_trem86/secrets/java-243611-6d1d9066ee2b.json"
-    state: facts
