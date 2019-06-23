@@ -1,0 +1,14 @@
+---
+plugin: gcp_compute
+zones: europe-west6-a
+projects: java-243611
+service_account_file: "/home/dr_trem86/secrets/java-243611-6d1d9066ee2b.json"
+auth_kind: serviceaccount
+groups:
+  back_server: "'back' in name"
+  front_servers: "'front' in name"
+hostnames:
+  - name
+  - public_ip
+compose:
+  ansible_host: networkInterfaces[0].accessConfigs[0].natIP
