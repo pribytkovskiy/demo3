@@ -7,9 +7,9 @@ provider "google" {
 
 #Database
 
-resource "google_sql_database" "db6" {
+resource "google_sql_database" "db7" {
   name      = "bike_championship"
-  instance  = "db6"
+  instance  = "db7"
 
   timeouts {
     create = "2m"
