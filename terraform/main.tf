@@ -111,10 +111,6 @@ resource "google_compute_instance" "back" {
 resource "google_sql_database" "db3" {
   name      = "bike_championship"
   instance  = "db3"
-
-  timeouts {
-    create = "2m"
-  }
 }
 
 #Firewall
