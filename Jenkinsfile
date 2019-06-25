@@ -5,7 +5,25 @@ pipeline {
         stage('Terraform build') {
            steps {
                echo 'Terraform build' 
-               dir("./terraform") {
+               dir("./terraform/db_inc") {
+                   sh 'terraform init -input=false'
+                   sh 'terraform apply -input=false -auto-approve'
+               }
+           }
+        }
+        stage('Terraform build') {
+           steps {
+               echo 'Terraform build' 
+               dir("./terraform/db_db") {
+                   sh 'terraform init -input=false'
+                   sh 'terraform apply -input=false -auto-approve'
+               }
+           }
+        }
+        stage('Terraform build') {
+           steps {
+               echo 'Terraform build' 
+               dir("./terraform/main") {
                    sh 'terraform init -input=false'
                    sh 'terraform apply -input=false -auto-approve'
                }
