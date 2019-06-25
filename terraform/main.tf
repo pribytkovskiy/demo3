@@ -92,20 +92,13 @@ resource "google_compute_instance" "back" {
 
 #Database
 
-resource "google_sql_database" "db5" {
+resource "google_sql_database" "db6" {
   name      = "bike_championship"
-  instance  = "db5"
+  instance  = "db6"
 
   timeouts {
     create = "2m"
   }
-}
-
-resource "google_sql_user" "root" {
-  name     = "root"
-  instance = "db5"
-  host     = "%"
-  password = "root"
 }
 
 #Firewall
@@ -145,4 +138,11 @@ resource "google_compute_forwarding_rule" "front-pool" {
   target = "${google_compute_target_pool.front-pool.self_link}"
   ip_address = "${google_compute_address.www-app.address}"
   port_range = "3000"
+}
+
+resource "google_sql_user" "root" {
+  name     = "root"
+  instance = "db6"
+  host     = "%"
+  password = "root"
 }
