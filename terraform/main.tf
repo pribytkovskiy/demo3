@@ -120,10 +120,6 @@ resource "google_sql_user" "root" {
   instance = "db3"
   host     = "%"
   password = "root"
-
-    timeouts {
-      create = "1m"
-  }
 }
 
 #Firewall
