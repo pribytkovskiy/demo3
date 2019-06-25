@@ -92,9 +92,9 @@ resource "google_compute_instance" "back" {
 
 #Database
 
-resource "google_sql_database" "db4" {
+resource "google_sql_database" "db5" {
   name      = "bike_championship"
-  instance  = "db4"
+  instance  = "db5"
 
   timeouts {
     create = "2m"
@@ -103,7 +103,7 @@ resource "google_sql_database" "db4" {
 
 resource "google_sql_user" "root" {
   name     = "root"
-  instance = "db4"
+  instance = "db5"
   host     = "%"
   password = "root"
 }
