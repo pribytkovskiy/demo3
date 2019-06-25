@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Terraform build') {
            steps {
-               echo 'Terraform build' 
+               echo 'Terraform build db_inc' 
                dir("./terraform/db_inc") {
                    sh 'terraform init -input=false'
                    sh 'terraform apply -input=false -auto-approve'
@@ -13,14 +13,14 @@ pipeline {
         }
         stage('Terraform build') {
            steps {
-               echo 'Terraform build' 
+               echo 'Terraform build db_db' 
                dir("./terraform/db_db") {
                    sh 'terraform init -input=false'
                    sh 'terraform apply -input=false -auto-approve'
                }
            }
         }
-        stage('Terraform build') {
+        stage('Terraform build main') {
            steps {
                echo 'Terraform build' 
                dir("./terraform/main") {
