@@ -5,11 +5,14 @@ provider "google" {
   zone    = "${var.zone}"
 }
 
+resource "null_resource" "before" {
+}
+
 #Database
 
-resource "google_sql_database" "db8" {
+resource "google_sql_database" "db9" {
   name      = "bike_championship"
-  instance  = "db8"
+  instance  = "db9"
 
   timeouts {
     create = "2m"
@@ -19,6 +22,9 @@ resource "google_sql_database" "db8" {
 resource "null_resource" "delay" {
   provisioner "local-exec" {
     command = "sleep 30"
+  }
+  triggers = {
+    "before" = "${null_resource.before.id}"
   }
 }
 
