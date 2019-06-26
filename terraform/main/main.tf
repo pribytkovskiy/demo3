@@ -94,7 +94,7 @@ resource "google_compute_instance" "back" {
 
 resource "google_sql_user" "root" {
   name     = "root"
-  instance = "db9"
+  instance = "db10"
   host     = "%"
   password = "root"
 }

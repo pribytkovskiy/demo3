@@ -6,7 +6,7 @@ After=networking.service
 
 [Service]
 WorkingDirectory=/usr/local/bin
-ExecStart=/usr/local/bin/cloud_sql_proxy -dir=/var/run/cloud-sql-proxy -instances=java-243611:europe-west6:db9=tcp:3306 -credential_file=/root/java-243611-5d8bde4edca0.json
+ExecStart=/usr/local/bin/cloud_sql_proxy -dir=/var/run/cloud-sql-proxy -instances=java-243611:europe-west6:db10=tcp:3306 -credential_file=/root/java-243611-5d8bde4edca0.json
 Restart=always
 StandardOutput=journal
 User=root
