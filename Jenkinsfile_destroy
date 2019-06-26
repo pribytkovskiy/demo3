@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Terraform destroy db instance') {
+           steps {
+               echo 'Terraform destroy db_inc' 
+               dir("./terraform/db_inc") {
+                   sh 'terraform destroy'
+               }
+           }
+        }
+        stage('Terraform destroy main') {
+           steps {
+               echo 'Terraform destroy main' 
+               dir("./terraform/main") {
+                   sh 'terraform destroy'
+               }
+           }
+        }
+    }
+}

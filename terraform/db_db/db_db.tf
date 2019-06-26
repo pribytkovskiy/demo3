@@ -10,7 +10,7 @@ resource "null_resource" "before" {
 
 #Database
 
-resource "google_sql_database" "db13" {
+resource "google_sql_database" "db12" {
   name      = "bike_championship"
   instance  = "db12"
 
