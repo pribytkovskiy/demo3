@@ -10,9 +10,9 @@ resource "null_resource" "before" {
 
 #Database
 
-resource "google_sql_database" "db12" {
+resource "google_sql_database" "db13" {
   name      = "bike_championship"
-  instance  = "db12"
+  instance  = "db13"
 
   timeouts {
     create = "2m"
