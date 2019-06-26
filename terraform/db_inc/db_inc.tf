@@ -11,8 +11,8 @@ resource "random_id" "db_name_suffix" {
   byte_length = 4
 }
 
-resource "google_sql_database_instance" "db11" {
-  name = "db11"
+resource "google_sql_database_instance" "db12" {
+  name = "db12"
   database_version = "MYSQL_5_6"
   region = "${var.region}"
 
