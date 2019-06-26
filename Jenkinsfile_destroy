@@ -6,6 +6,7 @@ pipeline {
            steps {
                echo 'Terraform destroy db_inc' 
                dir("./terraform/db_inc") {
+                   sh 'terraform init -input=false'
                    sh 'terraform destroy'
                }
            }
@@ -14,6 +15,7 @@ pipeline {
            steps {
                echo 'Terraform destroy main' 
                dir("./terraform/main") {
+                   sh 'terraform init -input=false'
                    sh 'terraform destroy'
                }
            }
