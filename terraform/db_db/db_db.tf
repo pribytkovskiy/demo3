@@ -7,11 +7,24 @@ provider "google" {
 
 #Database
 
-resource "google_sql_database" "db7" {
+resource "google_sql_database" "db8" {
   name      = "bike_championship"
-  instance  = "db7"
+  instance  = "db8"
 
   timeouts {
     create = "2m"
   }
+}
+
+resource "null_resource" "delay" {
+  provisioner "local-exec" {
+    command = "sleep 30"
+  }
+  triggers = {
+    "before" = "${null_resource.before.id}"
+  }
+}
+
+resource "null_resource" "after" {
+  depends_on = ["null_resource.delay"]
 }
